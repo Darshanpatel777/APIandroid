@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         try {
-                            JSONObject alldata = new JSONObject(response);
+                               JSONObject alldata = new JSONObject(response);
                             JSONArray product = alldata.getJSONArray("products");
                             for (int i = 0; i < product.length(); i++) {
 
