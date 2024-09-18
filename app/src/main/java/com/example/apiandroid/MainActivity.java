@@ -44,14 +44,22 @@ public class MainActivity extends AppCompatActivity {
 
 
                         try {
-                               JSONObject alldata = new JSONObject(response);
-                            JSONArray product = alldata.getJSONArray("products");
-                            for (int i = 0; i < product.length(); i++) {
+                                JSONObject alldata = new JSONObject(response);
+                                JSONArray product = alldata.getJSONArray("products");
+
+                            for (int i = 0; i < product.length(); i++)
+                            {
 
                                 JSONObject singleProduct = product.getJSONObject(i);
+
                                 String title = singleProduct.getString("title");
+                                String description = singleProduct.getString("description");
+                                String category = singleProduct.getString("category");
+
 
                                 Log.d("====r====", " title " + i + title);
+                                Log.d("====d====", "onResponse: description" + i + description);
+                                Log.d("====c====", "onResponse: category" + i + category);
                             }
                         } catch (JSONException e) {
 
@@ -60,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(VolleyError error)
+                    {
                         Log.e("====r====", "onErrorResponse: " + error.getLocalizedMessage());
 
                     }
