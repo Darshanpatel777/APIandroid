@@ -22,9 +22,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     Button sub;
+
+    ArrayList<Modalclass> allData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,38 +44,81 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 RequestQueue que = Volley.newRequestQueue(MainActivity.this);
-                StringRequest rs = new StringRequest(Request.Method.GET, "https://dummyjson.com/products", new Response.Listener<String>() {
+                String url = "https://dummyjson.com/products";
+                StringRequest rs = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-
+                        allData.clear();
                         try {
-                                JSONObject alldata = new JSONObject(response);
-                                JSONArray product = alldata.getJSONArray("products");
+                            JSONObject alldata = new JSONObject(response);
+                            JSONArray product = alldata.getJSONArray("products");
 
                             for (int i = 0; i < product.length(); i++)
                             {
 
                                 JSONObject singleProduct = product.getJSONObject(i);
 
+                                Integer id = singleProduct.getInt("id");
                                 String title = singleProduct.getString("title");
                                 String description = singleProduct.getString("description");
                                 String category = singleProduct.getString("category");
+                                double price = singleProduct.getDouble("price");
+                                double discountPercentage = singleProduct.getDouble("discountPercentage");
+                                double rating = singleProduct.getDouble("rating");
+                                Integer stock = singleProduct.getInt("stock");
+
+                                JSONArray jsonTags = singleProduct.getJSONArray("tags");
+                                String[] tags = new String[jsonTags.length()];
+                                for (int t = 0; t < jsonTags.length(); t++)
+                                {
+                                    tags[t] = jsonTags.getString(t);
+                                }
 
 
-                                Log.d("====r====", " title " + i + title);
-                                Log.d("====d====", "onResponse: description" + i + description);
-                                Log.d("====c====", "onResponse: category" + i + category);
-                            }
+                                String brand = singleProduct.getString("brand");
+
+                                JSONArray jsonReview = singleProduct.getJSONArray("reviews");
+                                ArrayList<HashMap<String, Object>> reviews = new ArrayList<>();
+                                for (int k = 0; k < jsonReview.length(); k++)
+                                {
+                                    JSONObject reviewMap = jsonReview.getJSONObject(k);
+
+                                    HashMap<String, Object> hash = new HashMap<>();
+
+                                    hash.put("rating", reviewMap.getInt("rating"));
+                                    hash.put("comment", reviewMap.getString("comment"));
+                                    hash.put("date", reviewMap.getString("date"));
+                                    hash.put("reviewerName", reviewMap.getString("reviewerName"));
+                                    hash.put("reviewerEmail", reviewMap.getString("reviewerEmail"));
+                                    reviews.add(hash);
+
+                                }
+
+                                JSONArray jsonImages = singleProduct.getJSONArray("images");
+                                ArrayList<String> images = new ArrayList<>();
+                                for (int k = 0; k < jsonImages.length(); k++)
+                                {
+                                    images.add(jsonImages.getString(k));
+                                }
+
+                                String thumbnail = singleProduct.getString("thumbnail");
+
+                                Modalclass modalclass = new Modalclass(id, title, description, category, price,
+                                        discountPercentage, rating, stock, tags, brand, reviews, images, thumbnail);
+
+                                allData.add(modalclass);
+                             }
                         } catch (JSONException e) {
 
                         }
 
+                        Log.d("====r====", " onResponse " + Arrays.toString(allData.get(0).getTags()));
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
+                    public void onErrorResponse(VolleyError error) {
                         Log.e("====r====", "onErrorResponse: " + error.getLocalizedMessage());
 
                     }
