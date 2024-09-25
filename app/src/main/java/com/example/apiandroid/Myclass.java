@@ -12,15 +12,13 @@ public class Myclass extends BaseAdapter {
 
     String[] array;
     MainActivity mainActivity;
-    int[] imagearray;
 
 
 
-    public Myclass(MainActivity mainActivity, String[] array, int[] imagearray) {
+    public Myclass(MainActivity mainActivity, String[] array) {
 
         this.array = array;
         this.mainActivity = mainActivity;
-        this.imagearray = imagearray;
     }
 
 
@@ -46,12 +44,9 @@ public class Myclass extends BaseAdapter {
         convertView = LayoutInflater.from(mainActivity).inflate(R.layout.detail,parent,false);
 
 
-        ImageView img;
-        img = convertView.findViewById(R.id.img);
-        img.setBackgroundResource(imagearray[position]);
 
         TextView txx;
-        txx = convertView.findViewById(R.id.txx);
+        txx = convertView.findViewById(R.id.txt);
         txx.setText(array[position]);
 
 
