@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:id="@+id/recycle"
         app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

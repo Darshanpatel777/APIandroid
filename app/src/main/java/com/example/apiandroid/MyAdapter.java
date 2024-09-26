@@ -43,9 +43,13 @@ public class MyAdapter extends RecyclerView.Adapter<Myrecycle> {
         Modalclass modal = allData.get(position);
 
         holder.txt.setText(modal.getTitle());
-        holder.price.setText(" ₹ " +String.valueOf(modal.getPrice()));
-        holder.rating.setText(" ☆☆☆☆☆" +String.valueOf(modal.getRating()));
-        holder.id.setText( String.valueOf(modal.getId()));
+        holder.price.setText("₹" +String.valueOf(modal.getPrice()));
+        holder.discount.setText("  " +String.valueOf(modal.getDiscountPercentage() + " %off "));
+
+        int k = (int) (100 - modal.getDiscountPercentage());
+        int t= (int) (modal.getPrice()*100);
+        holder.rate.setText(String.valueOf(" "+t/k));
+        holder.rating.setText(String.valueOf(modal.getRating()+" ★ "));
 
 
 
@@ -61,16 +65,20 @@ class Myrecycle extends RecyclerView.ViewHolder {
 
     TextView txt;
     TextView price;
+    TextView rate;
+    TextView discount;
     TextView rating;
-    TextView id;
+
 
 
     public Myrecycle(@NonNull View itemView) {
         super(itemView);
 
-        id = itemView.findViewById(R.id.id);
+
         txt = itemView.findViewById(R.id.txt);
         price = itemView.findViewById(R.id.price);
+        rate = itemView.findViewById(R.id.rate);
+        discount = itemView.findViewById(R.id.discount);
         rating = itemView.findViewById(R.id.rating);
 
 

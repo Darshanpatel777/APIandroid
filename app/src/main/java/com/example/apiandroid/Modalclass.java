@@ -13,7 +13,6 @@ public class Modalclass {
     private double rating;
     private Integer stock;
     private String[] tags;
-    private String brand;
     private ArrayList<HashMap<String, Object>> reviews;
     private ArrayList<String> images;
     private String thumbnail;
@@ -90,14 +89,6 @@ public class Modalclass {
         this.tags = tags;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public ArrayList<HashMap<String, Object>> getReviews() {
         return reviews;
     }
@@ -123,7 +114,7 @@ public class Modalclass {
     }
 
 
-    public Modalclass(Integer id, String title, String description, String category, double price, double discountPercentage, double rating, Integer stock, String[] tags, String brand, ArrayList<HashMap<String, Object>> reviews, ArrayList<String> images, String thumbnail) {
+    public Modalclass(Integer id, String title, String description, String category, double price, double discountPercentage, double rating, Integer stock, String[] tags,ArrayList<HashMap<String, Object>> reviews, ArrayList<String> images, String thumbnail) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -133,7 +124,7 @@ public class Modalclass {
         this.rating = rating;
         this.stock = stock;
         this.tags = tags;
-        this.brand = brand;
+
         this.reviews = reviews;
         this.images = images;
         this.thumbnail = thumbnail;

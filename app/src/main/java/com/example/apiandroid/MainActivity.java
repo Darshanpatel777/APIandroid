@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
 
-                                String brand = singleProduct.getString("brand");
+//                                String brand = singleProduct.getString("brand");
 
                                 JSONArray jsonReview = singleProduct.getJSONArray("reviews");
                                 ArrayList<HashMap<String, Object>> reviews = new ArrayList<>();
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                                 String thumbnail = singleProduct.getString("thumbnail");
 
                                 Modalclass modalclass = new Modalclass(id, title, description, category, price,
-                                        discountPercentage, rating, stock, tags, brand, reviews, images, thumbnail);
+                                        discountPercentage, rating, stock, tags, reviews, images, thumbnail);
 
                                 allData.add(modalclass);
                              }
