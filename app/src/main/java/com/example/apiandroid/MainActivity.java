@@ -1,5 +1,6 @@
 package com.example.apiandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,11 +32,10 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
 
-
     RecyclerView recycle;
 
 
-//    String array[]= {"Shirt","T-shirts","Jeans","Shoes","Wallets","Belts","Sunglasses"};
+    //    String array[]= {"Shirt","T-shirts","Jeans","Shoes","Wallets","Belts","Sunglasses"};
 //
 //    int imagearray[] = {R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1};
     ArrayList<Modalclass> allData = new ArrayList<>();
@@ -47,91 +47,89 @@ public class MainActivity extends AppCompatActivity {
 
         recycle = findViewById(R.id.recycle);
 
-                RequestQueue que = Volley.newRequestQueue(MainActivity.this);
-                String url = "https://dummyjson.com/products";
+        RequestQueue que = Volley.newRequestQueue(MainActivity.this);
+        String url = "https://dummyjson.com/products";
 
-                StringRequest rs = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        StringRequest rs = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-                        allData.clear();
-                        try {
-                            JSONObject alldata = new JSONObject(response);
-                            JSONArray product = alldata.getJSONArray("products");
+                allData.clear();
+                try {
+                    JSONObject alldata = new JSONObject(response);
+                    JSONArray product = alldata.getJSONArray("products");
 
-                            for (int i = 0; i < product.length(); i++)
-                            {
+                    for (int i = 0; i < product.length(); i++) {
 
-                                JSONObject singleProduct = product.getJSONObject(i);
+                        JSONObject singleProduct = product.getJSONObject(i);
 
-                                Integer id = singleProduct.getInt("id");
-                                String title = singleProduct.getString("title");
-                                String description = singleProduct.getString("description");
-                                String category = singleProduct.getString("category");
-                                double price = singleProduct.getDouble("price");
-                                double discountPercentage = singleProduct.getDouble("discountPercentage");
-                                double rating = singleProduct.getDouble("rating");
-                                Integer stock = singleProduct.getInt("stock");
+                        Integer id = singleProduct.getInt("id");
+                        String title = singleProduct.getString("title");
+                        String description = singleProduct.getString("description");
+                        String category = singleProduct.getString("category");
+                        double price = singleProduct.getDouble("price");
+                        double discountPercentage = singleProduct.getDouble("discountPercentage");
+                        double rating = singleProduct.getDouble("rating");
+                        Integer stock = singleProduct.getInt("stock");
 
-                                JSONArray jsonTags = singleProduct.getJSONArray("tags");
-                                String[] tags = new String[jsonTags.length()];
-                                for (int t = 0; t < jsonTags.length(); t++)
-                                {
-                                    tags[t] = jsonTags.getString(t);
-                                }
+                        JSONArray jsonTags = singleProduct.getJSONArray("tags");
+                        String[] tags = new String[jsonTags.length()];
+                        for (int t = 0; t < jsonTags.length(); t++) {
+                            tags[t] = jsonTags.getString(t);
+                        }
 
 
 //                                String brand = singleProduct.getString("brand");
 
-                                JSONArray jsonReview = singleProduct.getJSONArray("reviews");
-                                ArrayList<HashMap<String, Object>> reviews = new ArrayList<>();
-                                for (int k = 0; k < jsonReview.length(); k++)
-                                {
-                                    JSONObject reviewMap = jsonReview.getJSONObject(k);
+                        JSONArray jsonReview = singleProduct.getJSONArray("reviews");
+                        ArrayList<HashMap<String, Object>> reviews = new ArrayList<>();
+                        for (int k = 0; k < jsonReview.length(); k++) {
+                            JSONObject reviewMap = jsonReview.getJSONObject(k);
 
-                                    HashMap<String, Object> hash = new HashMap<>();
+                            HashMap<String, Object> hash = new HashMap<>();
 
-                                    hash.put("rating", reviewMap.getInt("rating"));
-                                    hash.put("comment", reviewMap.getString("comment"));
-                                    hash.put("date", reviewMap.getString("date"));
-                                    hash.put("reviewerName", reviewMap.getString("reviewerName"));
-                                    hash.put("reviewerEmail", reviewMap.getString("reviewerEmail"));
-                                    reviews.add(hash);
-
-                                }
-
-                                JSONArray jsonImages = singleProduct.getJSONArray("images");
-                                ArrayList<String> images = new ArrayList<>();
-                                for (int k = 0; k < jsonImages.length(); k++)
-                                {
-                                    images.add(jsonImages.getString(k));
-                                }
-
-                                String thumbnail = singleProduct.getString("thumbnail");
-
-                                Modalclass modalclass = new Modalclass(id, title, description, category, price,
-                                        discountPercentage, rating, stock, tags, reviews, images, thumbnail);
-
-                                allData.add(modalclass);
-                             }
-                        } catch (JSONException e) {
+                            hash.put("rating", reviewMap.getInt("rating"));
+                            hash.put("comment", reviewMap.getString("comment"));
+                            hash.put("date", reviewMap.getString("date"));
+                            hash.put("reviewerName", reviewMap.getString("reviewerName"));
+                            hash.put("reviewerEmail", reviewMap.getString("reviewerEmail"));
+                            reviews.add(hash);
 
                         }
 
-                        Log.d("====r====", "onResponse" + Arrays.toString(allData.get(0).getTags()));
+                        JSONArray jsonImages = singleProduct.getJSONArray("images");
+                        ArrayList<String> images = new ArrayList<>();
+                        for (int k = 0; k < jsonImages.length(); k++) {
+                            images.add(jsonImages.getString(k));
+                        }
 
-                        MyAdapter adpter = new MyAdapter(MainActivity.this,allData);
-                        recycle.setAdapter(adpter);
+                        String thumbnail = singleProduct.getString("thumbnail");
+
+                        Modalclass modalclass = new Modalclass(id, title, description, category, price,
+                                discountPercentage, rating, stock, tags, reviews, images, thumbnail);
+
+                        allData.add(modalclass);
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("====r====", "onErrorResponse: " + error.getLocalizedMessage());
+                } catch (JSONException e) {
 
-                    }
-                });
+                }
 
-                que.add(rs);
+                Log.d("====r====", "onResponse" + Arrays.toString(allData.get(0).getTags()));
+
+                MyAdapter adpter = new MyAdapter(MainActivity.this, allData);
+                recycle.setAdapter(adpter);
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("====r====", "onErrorResponse: " + error.getLocalizedMessage());
+
+            }
+        });
+
+        que.add(rs);
+
+
+    }
 
 }

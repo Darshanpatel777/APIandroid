@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Main_item_view">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle"
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#48A29E9E"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        android:id="@+id/txtmain">
+
+    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

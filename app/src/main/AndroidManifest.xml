@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ApiAndroid"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Main_item_view"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
