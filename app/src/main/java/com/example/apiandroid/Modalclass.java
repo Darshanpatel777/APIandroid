@@ -1,9 +1,10 @@
 package com.example.apiandroid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Modalclass {
+public class Modalclass implements Serializable {
     private Integer id;
     private String title;
     private String description;

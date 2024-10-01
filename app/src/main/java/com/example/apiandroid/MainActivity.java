@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     //    String array[]= {"Shirt","T-shirts","Jeans","Shoes","Wallets","Belts","Sunglasses"};
-//
 //    int imagearray[] = {R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1};
+
+
     ArrayList<Modalclass> allData = new ArrayList<>();
 
     @Override

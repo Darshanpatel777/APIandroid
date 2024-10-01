@@ -1,5 +1,6 @@
 package com.example.apiandroid;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.util.Log;
@@ -38,8 +39,9 @@ public class MyAdapter extends RecyclerView.Adapter<Myrecycle> {
         return myrecycle;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull Myrecycle holder, int position) {
+    public void onBindViewHolder(@NonNull Myrecycle holder, @SuppressLint("RecyclerView") int position) {
 
 
         Log.d("======", "onBindViewHolder: " + position);
@@ -51,9 +53,9 @@ public class MyAdapter extends RecyclerView.Adapter<Myrecycle> {
 
 
         holder.txt.setText(modal.getTitle());
-        holder.price.setText("₹" + String.valueOf(modal.getPrice()));
+        holder.price.setText("₹" + modal.getPrice());
 
-        holder.discount.setText("  " + String.valueOf(modal.getDiscountPercentage() + " %off "));
+        holder.discount.setText("  " + modal.getDiscountPercentage() + " %off ");
         int k = (int) (100 - modal.getDiscountPercentage());
         int t = (int) (modal.getPrice() * 100);
         holder.rate.setText(String.valueOf( t / k));
@@ -69,7 +71,8 @@ public class MyAdapter extends RecyclerView.Adapter<Myrecycle> {
             public void onClick(View v) {
 
                 Intent K = new Intent(mainActivity,Main_item_view.class);
-                mainActivity.startActivity(K);
+                mainActivity.startActivity(K.putExtra("data", allData.get(position)));
+
             }
         });
 
