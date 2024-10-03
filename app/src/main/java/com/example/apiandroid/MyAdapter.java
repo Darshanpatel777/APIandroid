@@ -50,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<Myrecycle> {
 
 
         Glide.with(mainActivity).load(modal.getThumbnail()).into(holder.img);
-
+//modal.t
 
         holder.txt.setText(modal.getTitle());
         holder.price.setText("₹" + modal.getPrice());
