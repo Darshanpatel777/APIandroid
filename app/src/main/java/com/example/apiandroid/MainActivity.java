@@ -31,13 +31,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-
     RecyclerView recycle;
-
-
-    //    String array[]= {"Shirt","T-shirts","Jeans","Shoes","Wallets","Belts","Sunglasses"};
-//    int imagearray[] = {R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1,R.drawable.jeans1};
-
 
     ArrayList<Modalclass> allData = new ArrayList<>();
 
@@ -46,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         recycle = findViewById(R.id.recycle);
+
 
         RequestQueue que = Volley.newRequestQueue(MainActivity.this);
         String url = "https://dummyjson.com/products";
